@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Title</title>
+        <link rel="stylesheet" href="/NoUpload/YellowBlue.css" />
+        <link rel="icon" href="icons/Logo.svg">
+        <script src="/pdf.js"></script>
+        <script src="/NoteTaker.js"></script>
+        <script src="/ui_utils.js"></script>
+        <script src="/text_layer_builder.js"></script>
+
+        <meta charset="UTF-8">
+        <meta name="description" content="Description of website"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+            .contentBody{
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <a href="https://utilityweb.xyz/index">
+                <img src="icons/Logo.svg" alt="UtilityWeb Logo" class="logo"/>
+            </a>
+            <h1 class="headerText">
+                Easily create notes on a PDF in your browser, no signups!
+            </h1>
+        </div>
+        <div class="contentBody">
+            <input type="file" id="file-selector" multiple>
+            <div style="width: 100%; height: 200vh; display: flex; align-items: center;flex-direction: column;" id="PageSize">
+                <div id="CanvasWrapper">
+                    <canvas id="PDFCanvas"></canvas>
+                    <div id="textLayer"></div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer"><p><a href="/Privacy.html">Privacy Policy</a></p><p>Copyright &copy; 2020, Utilityweb</p></footer>
+    </body>
+    <script>
+          const fileSelector = document.getElementById('file-selector');
+  fileSelector.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+        LoadPage(URL.createObjectURL(file), 1);
+  });
+    </script>
+</html>

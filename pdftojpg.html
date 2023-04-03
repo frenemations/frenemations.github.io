@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="jquery-3.4.1.js"></script>
+  <script src="jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.13.216/pdf.min.js"></script>
+  <script src="download.js"></script>
+  <script src="img_box.js"></script>
+    
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160618073-2"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160618073-2');
+  </script>
+
+    
+  <title>Free Online PDF to jpg converter. Mobile Friendly. No upload.</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="A Free Online Utility to securely convert a pdf into images. No upload Needed, Save Data! No download restrictions."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    
+<link rel="icon" href="icons/Logo.svg">
+    
+    <style>
+.banner{
+width: 100%;
+height: auto;
+background-color:#fcca46;
+margin-bottom: 20px;
+display: flex;
+justify-content: center;
+align-content: center;
+text-align: center;
+overflow-y: auto;
+}
+h1.bannerText{
+align-self: center;
+font-size: 15px; 
+color: #5c5a3e;
+}
+
+body {
+overflow-y: scroll;
+overflow-x: hidden;
+background-color: #233d4d;
+align-content: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.HeaderMain{
+width: 70%;
+margin-left: 15%;
+height: 40%;
+background-color: #fcca46;
+border-radius: 15px;
+}
+.ProgressBar{
+width: 100%;  
+}
+.HeaderImage{
+    height:auto;
+    margin: 10%;
+    width: 80%;
+}
+    
+    
+.headerContent{
+margin:10px auto;
+font-size: 25px;
+text-align: center;
+color:#75734f;
+}
+.headerContent-hide{
+display: none;
+margin:10px auto;
+font-size: 25px;
+text-align: center;
+color:#75734f;
+}
+.contentBody{
+margin-top: 25px;
+display: none;
+}
+
+.PdfPagesContainer{
+  display: grid;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  grid-template-columns: 26.6666% 26.6666% 26.6666%;
+  justify-content: space-evenly;
+  grid-row-gap: 10px;
+  height:auto;
+  visibility: hidden;
+  background-color: #fcca46;
+  border-radius: 5px;
+  width:100%;
+  }
+.AspectRatio{
+  position: relative; 
+  height: 0;
+  width: 100%; 
+  padding-top: 141.4%; /* A4 Aspect Ratio (9/16)*100*/ 
+}
+.header{
+display: grid;
+grid-template-columns: 33.333% 33.333% 33.333%;
+width: 100%;
+background-color: #619b8a;
+border-radius: 5px 5px 0px 0px;
+}
+.HeaderAspect{/* 1-1 aspect ratio in header cells*/
+  position: relative;
+  height: 0;
+  width: 100%; 
+  padding-top: 100%; /* 1 to 1 aspect ratio*/ 
+}
+.containerHeader{/*Align Content within aspect ratio cell*/
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}   
+    
+.PdfPage{
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #f2f2f2;
+border-color: green;
+border-width: thick;
+}
+.PdfImg{
+width:100%;
+height:100%;
+object-fit: contain;
+}
+
+.SaveButton{
+margin: 10%;
+width: 90%;
+height: 100%;
+cursor: pointer;
+}
+    .infoBody{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: space-evenly;
+        width:100%;
+        height: auto;
+        margin-top: 10vh;
+    }
+    
+    .infoItemBody{
+        display: flex;
+        margin:2vw;
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items: center;
+        background-color: #fcca46;
+        border-radius: 10px;
+        border-style: groove;
+        border-color: #fc6f46;
+    }
+    
+    .TitleContainer{
+       display:inline-flex;
+          align-items: center;
+       justify-content: center;
+    }
+    .infoIcon{
+        align-self: center;
+        height:64px;
+        padding-right: 20px;
+    }
+    .infoTitle{
+        color: #fc6f46;
+        font-size: 25px;
+    }
+    
+    h2.infoParagraph{
+        color: darkslategrey;
+        padding-left: 10%; 
+        padding-right: 10%; 
+        width:inherit;
+        font-size: 20px;
+        font-weight: 500;
+    }
+        .HeaderPreConvert{
+            display: flex;
+            flex-direction: row;
+            width:100%;
+            height:100%;
+            justify-content: center;
+            align-items: center;
+        }
+        .flex-hori-50{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+       .flex-hori-50-hide{
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+        .logo{
+            margin-right:10px;
+            margin-left:10px;
+            width: 10vh;
+            height: auto;
+        }
+        .input-hide{
+            display: none;
+        }
+        .HeaderRefresh{
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+        .HeaderConverting{
+            display: none;
+            width:100%;
+            height:100%;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        label{
+            font-size: 20px;
+        }
+        .hide-link{
+            text-decoration: none;
+        }
+        footer{
+        background-color: #fcca46;
+        align-content: center;
+        display: flex;
+        flex-direction:row;
+        justify-content: space-around;
+        }
+    
+    @media only screen and (min-width: 1000px) {
+        .PdfPagesContainer{
+            grid-template-columns: 20% 20% 20% 20%;
+        }
+        .HeaderImage{
+            width: 60%;
+        }
+        .HeaderMain{
+            width: 50%;
+            margin-left: 25%;
+        }
+        .infoBody{
+            grid-template-columns: repeat(2, 1fr);
+        }
+        h2.infoParagraph{
+            font-size: 20px;
+        }
+        p.accordion{
+        font-size: 20px;        
+        }
+        h1.bannerText{
+            font-size: 20px;
+        }
+        .headerContent{
+            font-size: 30px;
+        }
+}
+@media only screen and (min-width: 1500px){
+    .PdfPagesContainer{
+        grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10%;
+    }
+    .HeaderMain{
+        width: 40%;
+        margin-left: 30%;
+    }
+    .infoBody{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .HeaderImage{
+    width: 40%;
+    }
+    h2.infoParagraph{
+            font-size: 20px;
+    }
+    p.accordion{
+    font-size: 20px;        
+    }
+    h1.bannerText{
+            font-size: 25px;
+    }
+}
+
+</style>
+</head>
+<body>
+<div class="banner">
+    <a href="https://utilityweb.xyz/index">
+        <img src="icons/Logo.svg" alt="UtilityWeb Logo" class="logo"/>
+    </a>
+    <h1 class="bannerText">Easily extract images from a PDF with UtilityWeb. Get started by selecting a PDF.</h1>
+</div>
+<div id="Header" class="HeaderMain">
+    <div class="HeaderPreConvert">
+        <div class="flex-hori-50">
+            <h4 class="headerContent">Select PDF</h4>
+            <img class="HeaderImage" id="InputImage" alt="Select PDF To Extract" src="icons/Add.svg" />
+        </div>
+        <div id="SaveAsZip" class="flex-hori-50-hide">
+            <h4 class="headerContent">Save all in Zip</h4>
+            <img class="HeaderImage" alt="Download Images as zip archive" src="icons/MakeZip.svg" onclick="AsyncSaveBatch();"/>
+        </div>
+        <div class="HeaderRefresh"> 
+            <h4 class="headerContent">Start Over</h4>
+            <img class="HeaderImage" alt="Clear utility and start again" src="icons/Reload.svg" onclick="location.reload();"/>
+        </div>
+        <input class="input-hide" class="headerContent" type="file" accept=".pdf" id="pdf-select"/>
+        <button class="headerContent-hide" id="CreateButton" onclick="MakePDF();">I'm Ready, Create PDF</button>
+    </div>
+    <div class="HeaderConverting">
+        <label id="ProgressLabel">Processing...</label>
+        <progress id="ProgressBar" class="ProgressBar" value="0" max="100">0%</progress>
+    </div>
+</div>
+<div class="contentBody" id="contentBody">
+	<div class="PdfPagesContainer" id="PdfPagesContainer">
+    </div>
+</div>
+<div class="infoBody">
+      <div class="infoItemBody">
+        <div class="TitleContainer">
+            <img class="infoIcon" alt="Shield icon" src="icons/Shield.svg"/>
+          <h3 class="infoTitle">Security</h3>
+        </div>
+          <h2 class="infoParagraph">Your PDF doesn't get uploaded, all the conversion happens in your browser. This way we never see your documents, guaranteeing their privacy.</h2>
+      </div>
+       <div class="infoItemBody">
+         <div class="TitleContainer">
+            <img class="infoIcon" alt="Wrench icon" src="icons/UserExp.svg"/>
+            <h3 class="infoTitle">User Experience</h3>
+         </div>
+          <h2 class="infoParagraph">Mobile friendly layout in addition to unrestricted utility usage.</h2>
+      </div>
+       <div class="infoItemBody">
+           <div class="TitleContainer">
+               <img class="infoIcon" alt="Download Icon" src="icons/Download.svg"/>
+                <h3 class="infoTitle">Download Options</h3>
+           </div>
+          <h2 class="infoParagraph">Once images have been extracted, you can download them seperately or in batch as a single zip file.</h2>
+      </div>
+    <a class="hide-link" href="https://utilityweb.xyz/index">
+        <div class="infoItemBody" >
+            <div class="TitleContainer">
+                <h3 class="infoTitle">More Utilities</h3>
+            </div>
+            <h2 class="infoParagraph">This isn't the only utility provided by UtilityWeb, click here to view more of our free utilities.</h2>
+        </div>
+    </a>
+</div>
+    <footer class="footer"><p><a href="/Privacy.html">Privacy Policy</a></p><p>Copyright &copy; 2020, Utilityweb</p></footer>
+<script>
+
+    //CLicking Image Clicks Input
+    $("#InputImage").click(function(){
+    
+        gtag('event', 'Click', {'event_category': 'Core PdfTJpg','event_label': 'Click Add PDF'});
+
+        $("#pdf-select").click();
+    });
+
+//Declare ID Globally To keep count when adding Images
+var imgID = 0;
+
+//Global PDF Page Variables
+var pageCurrent = 1;
+var pageCount = 0;
+var PDF = null;
+
+//File Selector
+var FileSelector = document.getElementById("pdf-select");
+FileSelector.addEventListener('change', (e) => ProcessPDF(e.target.files[0]));
+
+  
+function ProcessPDF(pdfsrc){
+//Make Progress Bar Visible
+$(".HeaderConverting").css('display','flex');
+$(".HeaderPreConvert").css('display','none');
+
+//Make Zip Button Visible
+var SaveBatchButton = document.getElementById("SaveAsZip");
+SaveBatchButton.style.display = "flex";
+
+    
+    //Async PDF Loading
+    var loadingTask = pdfjsLib.getDocument(URL.createObjectURL(pdfsrc));
+
+        
+    loadingTask.promise.then(function(pdf) {
+                //Set Global
+                PDF = pdf;
+                
+                //Set Page Count
+                pageCount = pdf.numPages;
+        
+                //Start Processing
+                pdf.getPage(1).then(ProcessPages);
+      }).catch(error => alert("Something went wrong while trying to read the PDF. Error: " + error.message));
+}  
+//Credit https://stackoverflow.com/questions/16480469/how-to-display-whole-pdf-not-only-one-page-with-pdf-js
+function ProcessPages(page){
+    
+    setProgress((pageCurrent / pageCount ) * 100, "Extracting page " + pageCurrent + " out of " + pageCount);
+     //This gives us the page's dimensions at full scale
+    var viewport = page.getViewport( {scale:5} );
+
+    //We'll create a canvas for each page to draw it on
+    var canvas = document.createElement( "canvas" );
+    var context = canvas.getContext('2d');
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+    canvas.style.height = "100%";
+    canvas.style.width = "100%";
+
+    //Draw it on the canvas
+    page.render({canvasContext: context, viewport: viewport}).promise.then(function(){
+        
+    //Convert To Image
+    var imgSource = canvas.toDataURL("image/jpeg");
+        
+    //Add Image To Body
+    AddImage(imgSource);
+        
+    //Move to next page
+    pageCurrent++;
+    if ( PDF !== null && pageCurrent <= pageCount )
+    {
+        PDF.getPage( pageCurrent ).then( ProcessPages );
+    }
+    else//Done
+    {
+        setProgress(100, "Processing...");
+        //Set Add PDF visible Again
+        $(".HeaderConverting").css('display','none');
+        $(".HeaderPreConvert").css('display','flex');
+        $(".HeaderRefresh").css('display', 'flex');
+        pageCurrent = 1;
+    }
+    });
+    
+}
+
+
+function AddImage(source){
+//Make Image page visible
+
+var imgPage = document.getElementById("PdfPagesContainer");
+var bodyDiv = document.getElementById("contentBody");
+bodyDiv.style.display = "block";
+imgPage.style.visibility = "visible";
+
+        var htmlToInsert = 
+         '<div class="Page" id="page' + imgID + '">'
+            +        '<div class="header">'
+            +           '<div class="HeaderAspect">'
+            +               '<div class="containerHeader">'
+            +		               '<img alt="Download The Image" src="icons/Download.svg" onClick="DownloadImage(' + imgID + ');" class="SaveButton" id="rotate'+ imgID + '"/>'
+            +               '</div>'
+            +           '</div>'
+            +           '<div class="HeaderAspect">'
+            +               '<div class="containerHeader">'
+            +		             '<h5 style="font-size:30px;" align="center">'+(imgID+1)+'</h5>'
+            +               '</div>'
+            +           '</div>'
+            +           '<div class="HeaderAspect">'
+            +               '<div class="containerHeader">'
+            +		            '<img alt="View The Image Fullscreen" src="icons/Expand.svg" class="SaveButton" onClick="img_box(document.getElementById(\'' + imgID + '\'));" id="rotate'+ imgID + '"/>'
+            +               '</div>'
+            +           '</div>'
+            +		 '</div>'
+            +        '<div class="AspectRatio">'
+            +            '<div class="PdfPage">'
+            +		             '<img class="PdfImg" id="' + imgID + '" src="' +source+ '"/>'
+            +		     '</div>'; 
+            +        '</div>'
+        +'</div>';
+
+            
+        $("#PdfPagesContainer").append(htmlToInsert);//Add Row Of Images
+	
+        imgID++;
+}
+    
+
+    function DownloadImage(id)
+    {
+        //Used to Compare # Of users who prefer to download seperately vs in batch
+        gtag('event', 'Click', {'event_category': 'Core PdfTJpg','event_label': 'Download Seperate PDF Image'});
+        
+        var img = document.getElementById(id);
+        if(img == null) return;
+    
+
+        var a = document.createElement("a");
+        a.href = "data:image/jpeg;base64," + img.src.split(',')[1]; 
+        a.download = "Page " + (id+1) + ".jpg"; 
+        a.click(); //Downloaded file   
+    }
+    
+    
+    function AsyncSaveBatch()    
+    {
+            //Make Progress Bar Visible
+$(".HeaderConverting").css('display','flex');
+$(".HeaderPreConvert").css('display','none');
+    
+        //Execute Asynchronous Call To SaveBatch. Seems to be ignored on chrome desktop?
+         setTimeout(SaveBatch, 0);
+    }
+
+//Save Images As Zip
+function SaveBatch(){
+    
+    //We use these events to view user interaction with the page and to improve webpage flow for better user experience.
+    gtag('event', 'Click', {'event_category': 'Core PdfTJpg','event_label': 'Save PDF Batch'});
+    
+    var images = document.getElementsByClassName("PdfImg");
+
+    var zip = new JSZip();
+    var imgFolder = zip.folder("PDF Pages");
+    
+    //Loop Over All Images
+    for(var i = 0; i< images.length; i++)
+        {
+            imgFolder.file("Page " + (parseInt(images[i].id) + 1)+ ".jpg", images[i].src.split(',')[1], {base64:true});
+            setProgress(((i+1)/images.length) * 100, "Added Image " + (i+1) + " out of " + images.length);
+        }
+    
+    setProgress(100, "Creating Zip File (this may take a while)...");
+    //Create Zip
+    zip.generateAsync({type:"blob"}, function onUpdate(progress){
+            setProgress(progress.percent, "Creating Zip File: " + Math.round(progress.percent) + "%");
+    }).then(function(content) {
+    // see FileSaver.js
+    download(content, "UtilityWeb PDF Images.zip", content.type);
+        //Hide Progress Bar
+        $(".HeaderConverting").css('display','none');
+        $(".HeaderPreConvert").css('display','flex');
+    });
+}
+function setProgress(percent, text)
+    {
+        var progress = document.getElementById("ProgressBar");
+        var label = document.getElementById("ProgressLabel");
+        label.innerHTML = text;
+        progress.value = percent;
+    }
+
+//Calculate Layout Options For Image In PDF Page
+function getImageLayout(dataUrl, doc){
+
+    const imgProps= doc.getImageProperties(dataUrl);
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+
+    var imgRatio = imgProps.height / imgProps.width ;
+    var pageRatio = pageHeight / pageWidth;
+
+    var width;
+    var height;
+    
+    if(imgRatio >= pageRatio){//Vertical image, scale width
+    height = pageHeight;
+    width = (imgProps.width * pageHeight)/imgProps.height;
+    }
+    else{//Horizontal Image, scale Height
+    width = pageWidth;
+    height = (imgProps.height * pageWidth) / imgProps.width;
+    }
+        //Center
+        var x = (pageWidth - width) / 2;
+        var y = (pageHeight - height) / 2;
+
+    return {width: width, height: height, x: x, y: y};
+}
+
+function getRotationDegrees(obj) {
+    var matrix = obj.css("-webkit-transform") ||
+    obj.css("-moz-transform")    ||
+    obj.css("-ms-transform")     ||
+    obj.css("-o-transform")      ||
+    obj.css("transform");
+    if(matrix !== 'none') {
+        var values = matrix.split('(')[1].split(')')[0].split(',');
+        var a = values[0];
+        var b = values[1];
+        var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+    } else { var angle = 0; }
+    return (angle < 0) ? angle + 360 : angle;
+}
+
+</script>
+</body>
+</html>

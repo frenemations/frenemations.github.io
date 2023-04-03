@@ -1,0 +1,498 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+    <title>Free Online Text To Speech</title>
+    <meta name="description" content="Free Online Text To Speech">
+    <meta name="author" content="UtilityWeb">
+    <link rel="icon" href="icons/Logo.svg">
+    
+    <meta name="description" content="A Free Online Utility To Convert Text To Speech. Allows Rate+Volume Control And Voice Selection. Able To Use Installed TTS Voices."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="js.cookie.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160618073-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160618073-2');
+</script>
+
+<style>
+html{
+     height: 100%;
+}
+body {
+overflow-y: auto;
+overflow-x: hidden;
+background-color: #233d4d;
+align-content: center;
+display: flex;
+flex-direction: column;
+}
+.Banner{
+width: 100%;
+height: auto;
+margin-top: 0px;
+background-color:#fcca46;
+margin-bottom: 20px;
+display: flex;
+justify-content: center;
+align-content: center;
+text-align: center;
+overflow-y: auto;
+}
+.bannerText{
+align-self: center;
+font-size: 16px; 
+color: #5c5a3e;
+}
+    
+.Content{
+  display: flex;
+  vertical-align: bottom;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  grid-row-gap: 10px;
+  height:auto;
+  background-color: #fcca46;
+  border-radius: 5px;
+  width:100%;
+  }
+.contentElement{
+    margin: 10px;
+}
+.SettingsContainer{
+height:auto;
+margin-left: 2%;
+margin-right: 2%;
+margin-top: 1%;
+margin-bottom: 1%;
+display: flex;
+align-content: center;
+text-align: center;
+flex-direction: column;
+background-color: #fcca46;
+border-radius: 15px;
+}
+.toggler{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+}
+.flex-vertical{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+    .flex-vertical-expand{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-evenly;
+    flex-shrink: 0;
+    text-align: center;
+    height:100%;
+}
+.flex-horizontal{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+}
+.flex-content{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    text-align: center;
+    margin-top: 5%;
+}
+h2{
+    color:#fc6f46;
+} 
+.voiceSelect{
+width: 90%;
+margin-left: 5%;
+margin-right: 5%;
+height: 5vh;
+background-color:#fc6f46;
+border-color: #dbaf3b;
+color: #000000;
+margin-bottom: 2%;
+}
+.contentText{
+font-size: 15px;
+font-weight: bold;
+color:#5c5a3e;
+}
+.sliderHori{
+    width: 60%;
+}
+.warning{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-style: solid;
+    border-color: #fc6f46;
+}
+.button-orange{
+   margin: 10px;
+    border-radius: 5px;
+    background-color: #fc6f46;
+    border-color: #fc6f46;
+    width: 100%;
+    height: 10vh;
+}
+.textbox{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 90%;
+    margin-top: 2%;
+    height:50vh;
+    background-color: #fad87d;
+    border-style:groove;
+    color:#000000;
+}
+    
+/*Credit: W3schools*/    
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fc9d81;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #5c5a3e;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+     footer{
+         margin-top: 5vh;
+        background-color: #fcca46;
+        align-content: center;
+        display: flex;
+        flex-direction:row;
+        justify-content: space-around;
+    }
+
+input:checked + .slider {
+  background-color: #fc6f46;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #fc6f46;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+    
+    
+    
+@media only screen and (min-width: 1000px) {
+    .settingsContainer{
+    width:30%;
+    }
+    .sliderHori{
+    width: 50%;
+    }
+    .flex-content{
+    flex-direction: row;
+    }
+    .bannerText{
+        font-size: 25px; 
+    }
+}
+</style>
+    
+</head>
+
+<body>
+    <div class="Banner">
+        <a href="https://utilityweb.xyz/index">
+            <img src="icons/Logo.svg" alt="UtilityWeb Logo" style="margin-right:10px;margin-left:10px; width: 10vh;height: auto;"/>
+        </a>
+        <h1 class= "bannerText">Easily convert text to speech on UtilityWeb using the speech API</h1>
+    </div>
+    
+<div class="flex-content">
+    <div class="Content">
+        <textarea class="textbox" id="TextToSpeak" placeholder="Text To Speak"></textarea>
+        <div class="flex-horizontal">
+            <button class="button-orange" onclick="SpeakText();">Speak</button>
+            <button class="button-orange" onclick="stop();">Stop</button>
+        </div>
+    </div>
+    <div class="SettingsContainer">
+        <h2>Settings</h2>
+        <div id="warning" class="warning">
+            <label class= "bannerText">Privacy Warning</label>
+            <p class="contentText">Using web based voices means you will be sending your text to the respective company to be converted into audio. The Conversion will not happen in your browser.</p>
+        </div>
+        <div class="toggler">
+            <label class="contentText">Include Available Web Based Voices</label>
+            <label class="switch">
+                <input onChange="ReloadVoices();" type="checkbox" id="AllowRemoteVoices">
+                  <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <label class="contentText">Selected TTS Voice</label>
+            <select onChange="SaveCookies();" class="voiceSelect" id="VoiceSelect" name="Select Local TTS Voice"></select>
+        </div>
+        <div class="flex-vertical">
+            <label class="contentText">Speech Speed</label>
+            <div class="flex-horizontal">
+                <input class="sliderHori" onInput="SpeedSliderChanged(this);" onChange="PreviewRate();" type="range" min="0.1" max="2" value="1" step="0.1" class="slider" id="SpeedSlider">
+                <label class="contentText" id="SpeedSliderValue">1x</label>
+            </div>
+        </div>
+        <div class="flex-vertical">
+            <label class="contentText">Speech Volume</label>
+            <div class="flex-horizontal">
+                <input class="sliderHori" onInput="VolumeSliderChanged(this);" onChange="PreviewVolume();" type="range" min="0" max="1" value="0.6" step="0.1" class="slider" id="VolumeSlider">
+                <label class="contentText" id="VolumeSliderValue">60%</label>
+            </div>
+        </div>
+    </div>
+</div>
+    <footer class="footer"><p><a href="/Privacy.html">Privacy Policy</a></p><p>Copyright &copy; 2020, Utilityweb</p></footer>
+ 
+    
+    <script>
+         var SpeechRate = 1;
+         var SpeechVolume = 0.6;
+         var AllowRemote = false;
+        
+        LoadCookies();
+        
+        //-----Speech Functions
+        function SpeakText()
+        {
+            var text = document.getElementById("TextToSpeak").value;
+            speak(text,SpeechRate, GetSelectedVoice(), SpeechVolume);
+        }
+        function GetSelectedVoice()
+        {            
+            var VoiceSelect = document.getElementById("VoiceSelect");
+            if(VoiceSelect.selectedIndex == -1) return null;
+    
+            var voiceName = VoiceSelect.options[VoiceSelect.selectedIndex].innerHTML;
+            return voiceName;
+        }
+        
+        function speak(text,speed,voiceName, volume)
+        { 
+            var speech = new SpeechSynthesisUtterance('');
+            
+            if(voiceName != null) speech.voice = speechSynthesis.getVoices().filter(function(voice) { return voice.name == voiceName; })[0];
+            speech.text = text;
+            speech.rate = speed;
+            speech.volume = volume;
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(speech);
+        }
+        function stop()
+        {
+            window.speechSynthesis.cancel();
+        }
+        //-----Speech Functions End
+        
+        //-----Sliders
+        function SpeedSliderChanged(slider)
+        {
+            var labelSlider = document.getElementById("SpeedSliderValue");
+            labelSlider.innerHTML = slider.value + "x";
+            SpeechRate = (slider.value);
+        }
+        function VolumeSliderChanged(slider)
+        {
+            var labelSlider = document.getElementById("VolumeSliderValue");
+            labelSlider.innerHTML = (slider.value * 100) + "%";
+            SpeechVolume = (slider.value);
+        }
+        function PreviewRate()
+        {
+            speak("Speech Speed", SpeechRate, GetSelectedVoice(), SpeechVolume);
+            SaveCookies();
+        }
+         function PreviewVolume()
+        {
+            speak("Speech Volume", SpeechRate, GetSelectedVoice(), SpeechVolume);
+            SaveCookies();
+        }
+        //-----Sliders Stop
+        
+        
+        
+        function ReloadVoices()
+        {
+            var voiceSelect = document.getElementById("VoiceSelect");
+            var length = voiceSelect.options.length;
+                          
+            AllowRemote = document.getElementById("AllowRemoteVoices").checked;
+            
+            for (i = length-1; i >= 0; i--)
+            {
+                voiceSelect.remove(i);
+            }
+            
+            LoadVoiceSelect();
+            SaveCookies();
+        }
+                    
+         function GetVoices() {
+             return new Promise(
+                 function (resolve, reject) {
+                     let synth = window.speechSynthesis;
+                     let id;
+                     
+                     id = setInterval(() => {
+                         if (synth.getVoices().length !== 0) {
+                             resolve(synth.getVoices());
+                             clearInterval(id);
+                         }
+                     }, 10);
+                 }
+             );
+         }
+            
+        function LoadVoiceSelect(savedSelectedVoice = null)
+        {
+            var WarningEl = document.getElementById("warning");
+            let promiseVoice = GetVoices();
+
+
+            //Toggle Privacy Warning Message
+            if(AllowRemote)
+            {
+                WarningEl.style.display = "block";
+            }else
+            {
+                WarningEl.style.display = "none";
+            }
+            
+            
+            promiseVoice.then((voices) => voices.forEach(function(voice)
+              {
+                 var index =0;
+                
+                //Allow Non Installed/Remote Voices?
+                if(AllowRemote == false)
+                {
+                    //Voice Not Locally Installed
+                    if(!voice.localService)
+                        {
+                            return;
+                        }
+                }
+                
+                //Populate Voice Selector
+                var voiceSelect = document.getElementById("VoiceSelect");
+                var option = document.createElement('option');
+                option.text = voice.name;
+                
+                    if(savedSelectedVoice != null)
+                    {
+                        if(voice.name == savedSelectedVoice)
+                            {
+                                option.selected = "selected";
+                            }
+                    }
+                
+                voiceSelect.add(option, 0);
+                
+            
+                index++;
+              }));
+        }
+       
+        //---- Cookie Helpers
+        function LoadCookies()
+        {
+            //Cookies not set / Not Properly set
+            if(!Cookies.get('AllowRemoteVoice') || !Cookies.get('SelectedVoice') || !Cookies.get('SpeechRate') || !Cookies.get('SpeechVolume'))
+            {
+                LoadVoiceSelect();
+                return;
+            }
+              
+            AllowRemote = Cookies.get('AllowRemoteVoice') == "true" ? true:false;
+            var SelectedVoice = Cookies.get('SelectedVoice');
+             
+            //Get Params Of Sliders From Cookies
+            SpeechRate = parseFloat(Cookies.get('SpeechRate'));
+            SpeechVolume = parseFloat(Cookies.get('SpeechVolume'));
+
+            //Update Slider Values
+            document.getElementById("SpeedSlider").value = SpeechRate;
+            document.getElementById("VolumeSlider").value = SpeechVolume;
+             
+            //Update Slider Texts
+            SpeedSliderChanged(document.getElementById("SpeedSlider"));
+            VolumeSliderChanged(document.getElementById("VolumeSlider"));
+            
+            //Load Selected Voice From Cookies
+            LoadVoiceSelect(SelectedVoice);
+        }
+        function SaveCookies()
+        {
+            //TODO Test Whether May Save
+            
+            Cookies.set('AllowRemoteVoice', AllowRemote, {path: '' });
+            Cookies.set('SelectedVoice', GetSelectedVoice(), {path: '' });
+            Cookies.set('SpeechRate', SpeechRate, {path: '' });
+            Cookies.set('SpeechVolume', SpeechVolume, {path: '' });
+        }
+        
+        //---- Cookie Helpers END
+        
+    </script>
+</body>
+</html>

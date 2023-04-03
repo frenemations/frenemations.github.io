@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160618073-2"></script>
+<script data-ad-client="ca-pub-5311364093570600" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160618073-2');
+</script>
+
+  <script src="jquery-3.4.1.js"></script>
+  <script src="jspdf.min.js"></script>
+  <title>Free Online Jpg,Png,Gif to PDF converter. No upload. No size limit. No signup</title>
+
+  <meta name="description" content="Utility to securely convert jpg,png and gif images to a pdf completely in your browser. No upload. Images Can be rotated and swapped around. There is no size limit, no sign up."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+<link rel="icon" href="icons/Logo.svg">
+    
+    <style>
+/* Style the element that is used to open and close the accordion class */
+h4.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 80%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin-bottom:5px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+/* Add a background color to the accordion if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+h4.accordion.active, h4.accordion:hover {
+    background-color: #ddd;
+}
+
+/* Unicode character for "plus" sign (+) */
+h4.accordion:after {
+    content: '\2795'; 
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+/* Unicode character for "minus" sign (-) */
+h4.accordion.active:after {
+    content: "\2796"; 
+}
+
+/* Style the element that is used for the panel class */
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.4s ease-in-out;
+    width: 70%;
+    opacity: 0;
+    margin-bottom:10px;
+    background-color: #bf9934;
+    font-size: 20px;
+}
+
+div.panel.show {
+    opacity: 1;
+    max-height: 500px; /* Whatever you like, as long as its more than the height of the content (on all screen sizes) */
+}
+</style>
+    
+    
+<style>
+.banner{
+width: 100%;
+height: auto;
+background-color:#fcca46;
+margin-bottom: 20px;
+display: flex;
+justify-content: center;
+align-content: center;
+text-align: center;
+overflow-y: auto;
+}
+h1.bannerText{
+align-self: center;
+font-size: 15px; 
+color: #5c5a3e;
+}
+    
+
+body {
+overflow-y: scroll;
+overflow-x: hidden;
+background-color: #233d4d;
+    align-content: center;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.HeaderMain{
+width: 70%;
+margin-left: 15%;
+height: 40%;
+background-color: #fcca46;
+    border-radius: 15px;
+}
+.ProgressBar{
+width: 100%;  
+}
+.HeaderImage{
+    height:auto;
+    margin: 10%;
+    width: 80%;
+}
+
+h5.mainLabel{
+margin:10px auto;
+font-size: 20px;
+color:#75734f;
+}
+.contentBody{
+margin-top: 25px;
+    display: none;
+}
+
+.PdfPagesContainer{
+  display: grid;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  grid-template-columns: 26.6666% 26.6666% 26.6666%;
+  justify-content: space-evenly;
+  grid-row-gap: 10px;
+  height:auto;
+  visibility: hidden;
+  background-color: #fcca46;
+  border-radius: 5px;
+  width:100%;
+  }
+.AspectRatio{
+  position: relative; 
+  height: 0px;
+  width: 100%; 
+  padding-top: 141.4%; /* A4 Aspect Ratio (9/16)*100*/ 
+}
+.header{
+display: grid;
+grid-template-columns: 33.333% 33.333% 33.333%;
+width: 100%;
+background-color: #619b8a;
+border-radius: 5px 5px 0px 0px;
+}
+.HeaderAspect{/* 1-1 aspect ratio in header cells*/
+  position: relative;
+  height: 0px;
+  width: 100%; 
+  padding-top: 100%; /* 1 to 1 aspect ratio*/ 
+}
+.containerHeader{/*Align Content within aspect ratio cell*/
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+    
+    
+    
+    
+.PdfPage{
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #f2f2f2;
+border-color: green;
+border-width: thick;
+}
+.PdfImg{
+width:100%;
+height:100%;
+object-fit: contain;
+}
+
+.RotationButton{
+width: 100%;
+height: 100%;
+}
+    .logo{
+        margin-right:10px;
+        margin-left:10px;
+        width: 10vh;
+        height: auto;
+    }
+    
+    .infoBody{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        justify-content: space-evenly;
+        width:100%;
+        height: auto;
+        margin-top: 10vh;
+    }
+    
+    .infoItemBody{
+        display: flex;
+        margin:2vw;
+        flex-direction: column;
+        justify-content:flex-start;
+        align-items: center;
+        background-color: #fcca46;
+        border-radius: 10px;
+        border-style: groove;
+        border-color: #fc6f46;
+    }
+    
+    .TitleContainer{
+       display:inline-flex;
+          align-items: center;
+       justify-content: center;
+    }
+    .infoIcon{
+        align-self: center;
+        height:64px; 
+        padding-right: 20px;
+    }
+    .infoTitle{
+        color: #fc6f46;
+        font-size: 25px;
+    }
+    
+    h2.infoParagraph{
+        color: darkslategrey;
+        padding-left: 10%; 
+        padding-right: 10%; 
+        width:inherit;
+        font-size: 20px;
+        font-weight: 500;
+    }
+    .Footer{
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .HeaderPreConvert{
+        display: flex;
+        flex-direction: row;
+        width:100%;
+        height:100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .HeaderConverting{
+        display: none;
+        width:100%;
+        height:100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .flex-hori-50{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+       .flex-hori-50-hidden{
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+    .image-select{
+        display: none;
+    }
+    .textTip{
+        background-color: #fcca46; 
+        color:#545338;
+        margin:0px;
+        padding-top: 5px;
+        text-align: center;
+        font-size: 25px;
+        font-weight: 600;
+    }
+    .link-no-highlight{
+        text-decoration: none;
+    }
+    footer{
+        background-color: #fcca46;
+        align-content: center;
+        display: flex;
+        flex-direction:row;
+        justify-content: space-around;
+    }
+    @media only screen and (min-width:700px){
+            h5.mainLabel{
+            font-size: 30px;
+        }
+    }
+    @media only screen and (min-width: 1000px) {
+        .PdfPagesContainer{
+            grid-template-columns: 20% 20% 20% 20%;
+        }
+        .HeaderImage{
+            width: 60%;
+        }
+        .HeaderMain{
+            width: 50%;
+            margin-left: 25%;
+        }
+        .infoBody{
+            grid-template-columns: repeat(2, 1fr);
+        }
+        h2.infoParagraph{
+            font-size: 20px;
+        }
+        h4.accordion{
+        font-size: 20px;        
+        }
+        h1.bannerText{
+            font-size: 20px;
+        }
+    
+    }
+    @media only screen and (min-width: 1500px){
+        .PdfPagesContainer{
+            grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10%;
+        }
+        .HeaderMain{
+            width: 40%;
+            margin-left: 30%;
+        }
+        .infoBody{
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .HeaderImage{
+            width: 40%;
+        }
+        h2.infoParagraph{
+            font-size: 20px;
+        }
+        h4.accordion{
+            font-size: 20px;        
+        }
+        h1.bannerText{
+            font-size: 25px;
+        }
+        h5.mainLabel{
+            font-size: 35px;
+        }
+    }
+
+</style>
+</head>
+<body>
+<div class="banner">
+    <a href="https://utilityweb.xyz/index">
+        <img  src="icons/Logo.svg" alt="UtilityWeb Logo" class="logo"/>
+    </a>
+    <h1 class= "bannerText">Easily convert images into a PDF with UtilityWeb. Get started by adding images.</h1>
+</div>
+<div id="Header" class="HeaderMain">
+    <div class="HeaderPreConvert">
+        <div class="flex-hori-50">
+            <h5 class="mainLabel">Add Images</h5>
+            <img class="HeaderImage" id="InputImage" alt="Add Images To Convert" src="icons/Add.svg" />
+        </div>
+        <div id="CreateButton" class="flex-hori-50-hidden">
+            <h5 class="mainLabel">Make PDF</h5>
+            <img class="HeaderImage" alt="Create PDF" src="icons/MakePDF.svg" onclick="MakePDF();"/>
+        </div>
+        <input class="image-select" class="headerContent" type="file" accept=".jpg,.png,.jpeg,.gif,.bmp" id="image-select" multiple/>
+    </div>
+    <div class="HeaderConverting">
+        <label id="ProgressLabel">Processing...</label>
+        <progress id="ProgressBar" class="ProgressBar" value="0" max="100">0%</progress>
+    </div>
+</div>
+<div class="contentBody" id="contentBody">
+    <div class="textTip">Click On Two Images To Swap Their Positions</div>
+	<div class="PdfPagesContainer" id="PdfPagesContainer">
+    </div>
+</div>
+<div class="infoBody">
+      <div class="infoItemBody">
+        <div class="TitleContainer">
+            <img class="infoIcon" alt="Shield Icon" src="icons/Shield.svg"/>
+          <h3 class="infoTitle">Security</h3>
+        </div>
+          <h2 class="infoParagraph">Images don't get uploaded and get converted right in your browser.Why would you want that? No upload means we never see your images, they are completely private. You also don't spend data uploading images.</h2>
+      </div>
+       <div class="infoItemBody">
+         <div class="TitleContainer">
+            <img class="infoIcon" alt="Cursor Icon" src="icons/UserExp.svg"/>
+            <h3 class="infoTitle">User Experience</h3>
+         </div>
+          <h2 class="infoParagraph">There are no size limits on images or the number of images you can convert. Saving your PDF is unrestricted, no sign ups, no emails needed. Images can be uploaded in batch.</h2>
+      </div>
+       <div class="infoItemBody" >
+           <div class="TitleContainer">
+               <img class="infoIcon" alt="Wrench Icon" src="icons/Wrench.svg"/>
+                <h3 class="infoTitle">Image Tools</h3>
+           </div>
+          <h2 class="infoParagraph">Once images have been selected, you can rotate and swap them around. Images are previewed on a white page showing you exactly how they will look on the PDF.</h2>
+      </div>
+    <a class="link-no-highlight" href="https://utilityweb.xyz/index">
+        <div class="infoItemBody" >
+                <div class="TitleContainer">
+                    <h3 class="infoTitle">More Utilities</h3>
+                </div>
+                <h2 class="infoParagraph">This isn't the only utility provided by UtilityWeb, click here to view more of our free utilities.</h2>
+          </div>
+    </a>
+</div>
+    <div class="infoItemBody">
+           <div class="TitleContainer">
+               <img class="infoIcon" alt="Question Mark Icon" src="icons/Question.svg"/>
+                <h3 class="infoTitle">FAQ</h3>
+           </div>
+                    <h4 class="accordion">I'm on mobile and I can't select multiple images, what gives?</h4>
+                    <div class="panel">Unfortunately, some mobile browsers don't yet support multiple file selection. Current android browsers with support: Chrome, Samsung internet, QQ browser and Baidu Browser</div>
+                    <h4 class="accordion">Nothing happens when I try to add images?</h4>
+                    <div class="panel">Please ensure that you have <a target="_blank" href="https://www.enable-javascript.com/">javascript enabled</a>, as the utility needs it to function.</div>
+                    <h4 class="accordion">How do I move images around?</h4>
+                    <div class="panel">Tap or click on the image to select it, then select a second image to swap their positions.</div>
+                    <h4 class="accordion">How does my browser create the PDF?</h4>
+                    <div class="panel">This utility uses javascript that runs in your browser to convert images into a PDF document, with each image on a seperate page. Credit goes to the JSPDF project for the library that does the convertion. For more info, visit <a href="https://github.com/MrRio/jsPDF" target="_blank">their github page.</a></div>
+                    <h4 class="accordion">I have some feedback, what are your contact details?</h4>
+                    <div class="panel">You can contact us via email at utilityweb.xyz@gmail.com</div>
+      </div>
+    <footer class="footer"><p><a href="/Privacy.html">Privacy Policy</a></p><p>Copyright &copy; 2020, Utilityweb</p></footer>
+ 
+<script>
+
+    //CLicking Image Clicks Input
+    $("#InputImage").click(function(){
+        gtag('event', 'Click', {'event_category': 'Core ImgToPDF','event_label': 'Click Add Images'});
+        $("#image-select").click();
+});
+
+//Declare ID Globally To keep count when adding Images
+var i = 0;
+
+//Handle Image Selection
+var selection1 = null;
+var selection2 = null;
+
+
+//File Selector
+var FileSelector = document.getElementById("image-select");
+FileSelector.addEventListener('change', (e) => AddImages(e.target.files));
+
+
+function AddImages(images){
+//Make Image page visible
+
+var imgPage = document.getElementById("PdfPagesContainer");
+var CreateButton = document.getElementById("CreateButton");
+var bodyDiv = document.getElementById("contentBody");
+bodyDiv.style.display = "block";
+imgPage.style.visibility = "visible";
+CreateButton.style.display = "flex";
+
+console.log(images);
+
+    var Icopy = i;//When Adding Images A second time, used for loop
+    
+//Loop Over Each Image
+    for(; (i - Icopy)<images.length; i++)
+    {			
+        var LocalID = (i - Icopy);//Id For array position
+        //Create Cell Divs
+
+        var htmlToInsert = 
+         '<div class="Page" id="page' + i + '">'
+            +        '<div class="header">'
+            +           '<div class="HeaderAspect">'
+            +               '<div class="containerHeader">'
+            +		          '<img alt="Rotate Icon" src="icons/Rotate.svg" class="RotationButton" id="rotate'+ i + '" onClick="Rotate90('+ i +');"/>'
+            +               '</div>'
+            +           '</div>'
+            +           '<div class="HeaderAspect">'
+            +               '<div class="containerHeader">'
+            +		             '<h4 style="font-size: 30px;" align="center">'+(i+1)+'</h4>'
+            +               '</div>'
+            +           '</div>'
+            +		 '</div>'
+            +        '<div class="AspectRatio">'
+            +            '<div class="PdfPage">'
+            +		             '<img onClick="OnImageSelect(this)" class="PdfImg" id="' + i + '" src="' +URL.createObjectURL(images[LocalID]) + '"/>'
+            +		     '</div>'; 
+            +        '</div>'
+        +'</div>';
+    
+            
+        $("#PdfPagesContainer").append(htmlToInsert);//Add Row Of Images
+	
+    }
+}
+function MakePDF(){
+gtag('event', 'Click', {'event_category': 'Core ImgToPDF','event_label': 'Click Make PDF'});
+
+// Default export is a4 paper, portrait, using milimeters for units
+var doc = new jsPDF('p', 'pt','a4',true);
+    
+//Scroll to top to make progress bar visible on mobile devices.
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    
+var images = document.getElementsByClassName("PdfImg");
+$(".HeaderConverting").css('display','flex');
+$(".HeaderPreConvert").css('display','none');
+
+    
+ProcessImageRecursive(images, doc, 0);
+    
+}
+
+function ProcessImageRecursive(images,doc,id) {
+    
+    var imgOR = images[id];//Get Next image
+
+    //Img used to draw to canvas(for rotation)
+    var img = new Image();
+
+    img.setAttribute('crossOrigin', 'anonymous');
+
+    img.onload = function () {
+        //Get Original Image Rotation
+        var imgRot = getRotationDegrees($('#' + imgOR.id));
+
+        var canvas = document.createElement("canvas");
+
+        if(imgRot == 90 || imgRot == 270){//Image Sideways, Swap W & H
+        canvas.width = imgOR.naturalHeight;
+        canvas.height = imgOR.naturalWidth;
+        }
+        else{  
+        canvas.width = imgOR.naturalWidth;
+        canvas.height = imgOR.naturalHeight;
+        }
+        var ctx = canvas.getContext("2d");
+        ctx.save();
+        //https://stackoverflow.com/questions/17411991/html5-canvas-rotate-image
+        //Move to the center of the canvas
+        ctx.translate(canvas.width/2,canvas.height/2);
+        
+        ctx.rotate(imgRot * Math.PI / 180);
+        console.log('Image ' + id + ' Has Rotation of ' + imgRot);
+
+        // since the context is rotated, the image will be rotated also
+        ctx.drawImage(imgOR,-imgOR.naturalWidth/2,-imgOR.naturalHeight/2, imgOR.naturalWidth, imgOR.naturalHeight);
+
+        ctx.restore();
+        var dataURL = canvas.toDataURL("image/jpeg", 0.9);
+        console.log("Adding Img " + imgOR.name);
+
+
+        var imgLayoutProps = getImageLayout(dataURL, doc);
+        //var pdfWidth = doc.internal.pageSize.getWidth();
+        //const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        //Center
+       
+
+        doc.addImage(dataURL, 'JPEG', imgLayoutProps.x, imgLayoutProps.y, imgLayoutProps.width, imgLayoutProps.height,null,'FAST',);
+
+        if(id == (images.length - 1)){
+        doc.save('utilityweb.pdf');
+        var progress = document.getElementById("ProgressBar");
+        var label = document.getElementById("ProgressLabel");
+        label.innerHTML = "Processed Image " + (id + 1) + " of " + images.length;
+        progress.value = 100;
+         location.reload();
+        return;
+
+        }else{
+        doc.addPage();
+        ProcessImageRecursive(images,doc, id + 1);
+            
+        var progress = document.getElementById("ProgressBar");
+        var label = document.getElementById("ProgressLabel");
+        progress.value = ((id + 1)/images.length) * 100;
+        label.innerHTML = "Processed Image " + (id + 1) + " of " + images.length;
+        }
+
+        
+        //document.body.appendChild(canvas);
+
+    };
+
+    img.src = imgOR.src;
+}
+
+//Calculate Layout Options For Image In PDF Page
+function getImageLayout(dataUrl, doc){
+
+    const imgProps= doc.getImageProperties(dataUrl);
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+
+    var imgRatio = imgProps.height / imgProps.width ;
+    var pageRatio = pageHeight / pageWidth;
+
+    var width;
+    var height;
+    
+    if(imgRatio >= pageRatio){//Vertical image, scale width
+    height = pageHeight;
+    width = (imgProps.width * pageHeight)/imgProps.height;
+    }
+    else{//Horizontal Image, scale Height
+    width = pageWidth;
+    height = (imgProps.height * pageWidth) / imgProps.width;
+    }
+        //Center
+        var x = (pageWidth - width) / 2;
+        var y = (pageHeight - height) / 2;
+
+    return {width: width, height: height, x: x, y: y};
+}
+
+function getRotationDegrees(obj) {
+    var matrix = obj.css("-webkit-transform") ||
+    obj.css("-moz-transform")    ||
+    obj.css("-ms-transform")     ||
+    obj.css("-o-transform")      ||
+    obj.css("transform");
+    if(matrix !== 'none') {
+        var values = matrix.split('(')[1].split(')')[0].split(',');
+        var a = values[0];
+        var b = values[1];
+        var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+    } else { var angle = 0; }
+    return (angle < 0) ? angle + 360 : angle;
+}
+
+function Rotate90(id){
+var idStr = "#" + id;
+var img = $(idStr);
+
+	var rot = getRotationDegrees(img);
+	rot = ((rot += 90) % 360);//calculate new rotation (+90)
+	
+    Rotate(rot,id,img);
+    
+}
+function Rotate(degrees, id, img){
+
+var PdfPage = img.parent();
+
+var vanillaImg = document.getElementById(id);
+
+var newSize = getNewSizeFromRotation(degrees,vanillaImg.naturalWidth,vanillaImg.naturalHeight, PdfPage.width(), PdfPage.height() );
+
+img.css('transform','rotate(' + degrees + 'deg)');
+    
+    if(newSize != null)
+    {
+    img.width(newSize.width);
+    img.height(newSize.height);
+    }
+
+}
+
+function OnImageSelect(image){
+
+console.log("Processing Selection For Image: " + image.id);
+if(selection1 == null && selection2 == null){//No Previous images selected, 
+    selection1 = image;
+    $("#" + image.id).parent().css('border-style','solid');//Border Color
+}else{//Previous Images Set
+
+
+//-------------Deselect
+if(selection1 == image){//Deselect
+    
+    $("#" + image.id).parent().css('border-style','hidden');//Border Color
+    selection1 = null;
+    return;
+
+}else if(selection2 == image){//Deselect
+    $("#" + image.id).parent().css('border-style','hidden');//Border Color
+    selection2 = null;
+    return;
+}
+//-------------Deselect
+
+
+//-------------Assign new Selection 2
+if(selection2 == null){
+    selection2 = image;
+   // $("#" + image.id).parent().css('border-color','coral');//Border Color
+//-------------Assign new Selection 2
+
+//-------------Handle Selected
+$("#" + selection1.id).parent().css('border-style','hidden');//Border Color
+//$("#" + selection2.id).parent().css('border-color','black');//Border Color
+
+
+SwapPlaces(selection1, selection2);
+
+
+selection1 = null;
+selection2 = null;
+}
+
+}
+
+
+}
+
+function SwapPlaces(img1, img2){
+var src1 = img1.src;
+
+//Jquery Instances Of Images
+var query1 = $('#' + img1.id);
+var query2 = $('#' + img2.id);
+
+var rot1 = getRotationDegrees(query1);
+var rot2 = getRotationDegrees(query2);
+
+img1.src = img2.src;//Swap Src
+img2.src = src1;
+
+Rotate(rot2, img1.id, query1);//Swap Rotations
+Rotate(rot1, img2.id,query2);
+}
+    
+function Pop(id){
+    var page = document.getElementById('page' + id);
+    if(page == null) {return;}
+    
+    page.parentNode.removeChild(page);//Animate?
+}
+
+function getNewSizeFromRotation(degrees, imgORW, imgORH, Pwidth, Pheight){
+
+if((imgORH/imgORW) == 1) {return;}//No rescale needed
+
+if(degrees == 90 || degrees == 270){
+return {width: Pheight, height: Pwidth};
+}
+else//0 or 180 degree Rotation
+{
+return {width: Pwidth, height: Pheight};
+}
+}
+
+
+</script>
+    
+    
+<script>
+/* Toggle between adding and removing the "active" and "show" classes when the user clicks on one of the "Section" buttons. The "active" class is used to add a background color to the current button when its belonging panel is open. The "show" class is used to open the specific accordion panel */
+var acc = document.getElementsByClassName("accordion");
+var ind;
+
+for (ind = 0; ind < acc.length; ind++) {
+    acc[ind].onclick = function(){
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+};
+}
+</script>
+</body>
+</html>

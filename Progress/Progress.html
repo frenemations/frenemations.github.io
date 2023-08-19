@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="/NoUpload/YellowBlue.css"/>
         <link rel="icon" href="icons/Logo.svg">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script type="text/javascript" src="./TestData.js"></script>
+        <script type="text/javascript" src="./KelpMetabolomics.js"></script>
         <meta charset="UTF-8">
         <meta name="description" content="Description of website"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,19 +88,7 @@
     <script>
         console.log(data);
         console.log(data[[0]]);
-        console.log(data[[0]].Sample);
-        const colors = [
-            'grey',
-            'blue',
-            'green',
-            'red',
-            'magenta',
-            'red',
-            'yellow',
-            'orange'
-        ];
-
-        const numColors = colors.length - 1;
+        console.log(data[[0]].ID);
 
         function createGrid(numRows, numCols) { /* for (var i=0; i<numRows; i++) {
     $('#container').append("<ul id='row-"+i+"' class='row'>");
@@ -109,8 +97,8 @@
       createSquares(numRows, numCols);
     };
   }*/
-            var CurrSampleSet = getSampleSet(data[[0]].Sample); // get sample set (01) of first sample
-            var CurrSampleSite = getSite(data[[0]].Sample); // Set sample site
+            var CurrSampleSet = getSampleSet(data[[0]].ID); // get sample set (01) of first sample
+            var CurrSampleSite = getSite(data[[0]].ID); // Set sample site
 
             AddSetSeperator(CurrSampleSet);
             AddSiteSeperator(CurrSampleSite);
@@ -124,8 +112,8 @@
                 // Loop over samples
 
                 // Check for new sample set (e.g. 01KM to 02KM)
-                if (getSampleSet(data[[i]].Sample) != CurrSampleSet) { // New set, add seperator
-                    CurrSampleSet = getSampleSet(data[[i]].Sample);
+                if (getSampleSet(data[[i]].ID) != CurrSampleSet) { // New set, add seperator
+                    CurrSampleSet = getSampleSet(data[[i]].ID);
                     AddSetSeperator(CurrSampleSet); // Add seperator with text of new sample set
 
                     RowNum++;
@@ -133,8 +121,8 @@
                     $ActiveRow = $('#row-' + RowNum)
                     offset = i; // Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
                 }
-                if (CurrSampleSite != getSite(data[[i]].Sample)) { // Check for different sites within sample set (e.g. 01KM to 01FH)
-                    CurrSampleSite = getSite(data[[i]].Sample); // Set sample site
+                if (CurrSampleSite != getSite(data[[i]].ID)) { // Check for different sites within sample set (e.g. 01KM to 01FH)
+                    CurrSampleSite = getSite(data[[i]].ID); // Set sample site
                     AddSiteSeperator(CurrSampleSite); // Add seperator between sample sites within a sample set
                     
                     RowNum++;
@@ -225,7 +213,7 @@
 };
 */
         $(document).ready(function () {
-            createGrid(10, 10);
+            createGrid(10, 15);
 
             /*$('.square').on('mouseenter', function(event) {
     var square = event.target;
@@ -272,10 +260,12 @@
                 color = "#3865A3";
             } else if (Sample.FreezeDried == "Y") {
                 color = "#87A2C7";
+            }else if (Sample.Bagged == "Y"){
+              color = "#677876";
             }
 
             // $(square).data('color', newColorId);
-            $(Square).html('<span>' + Sample.Sample + '</span>');
+            $(Square).html('<span>' + Sample.ID + '</span>');
             $(Square).css('background-color', color);
         }
 

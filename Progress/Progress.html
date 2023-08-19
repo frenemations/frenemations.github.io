@@ -296,20 +296,20 @@
 
         function setSquareProperties(Square, Sample) {
 
-            var color = "grey"; // Default color for bagged samples
+            var color = "grey"; // Default color for collected samples
 
             if (Sample.Lost == "Y") {
-                color = "red";
+                color = Colors["Lost"];
             }else if(Sample.Analysed == "Y"){
-              color = "#b2eb57";
+              color = Colors["Analysed"];
             } else if (Sample.Extracted == "Y") {
-                color = "#30b84b";
+              color = Colors["Extracted"];
             } else if (Sample.Powdered == "Y") {
-                color = "#26ebeb";
+              color = Colors["Powdered"];
             } else if (Sample.FreezeDried == "Y") {
-                color = "#29b5ff";
+              color = Colors["FreezeDried"];
             }else if (Sample.Bagged == "Y"){
-              color = "#afe0fa";
+              color = Colors["Bagged"];
             }
 
             // $(square).data('color', newColorId);

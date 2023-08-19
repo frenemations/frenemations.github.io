@@ -160,7 +160,7 @@ data = [
     "Lost": "N"
   },
   {
-    "Sample": "01KM05B2",
+    "Sample": "01FH05B2",
     "ID": "AAQ",
     "DrySampleWeightFull": 37.5,
     "DryExtractPowderWeight": 1,
@@ -170,7 +170,7 @@ data = [
     "Lost": "N"
   },
   {
-    "Sample": "01KM05B1",
+    "Sample": "01FH05B1",
     "ID": "AAR",
     "DrySampleWeightFull": 8.8,
     "DryExtractPowderWeight": 1,
@@ -180,7 +180,7 @@ data = [
     "Lost": "N"
   },
   {
-    "Sample": "01KM05S",
+    "Sample": "02KM05S",
     "ID": "AAS",
     "DrySampleWeightFull": 8.05,
     "DryExtractPowderWeight": 1,
@@ -190,7 +190,7 @@ data = [
     "Lost": "N"
   },
   {
-    "Sample": "01KM05H",
+    "Sample": "02KM05H",
     "ID": "AAT",
     "DrySampleWeightFull": 8.15,
     "DryExtractPowderWeight": 1,

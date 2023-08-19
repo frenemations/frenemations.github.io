@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>Title</title>
-        <link rel="stylesheet" href="/NoUpload/YellowBlue.css" />
+        <link rel="stylesheet" href="/NoUpload/YellowBlue.css"/>
         <link rel="icon" href="icons/Logo.svg">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="./TestData.js"></script>
@@ -11,136 +11,163 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
             body {
-  font-family: sans-serif;
-  font-size: 100%;
-}
+                font-family: sans-serif;
+                font-size: 100%;
+            }
 
-#container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-}
+            #container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
 
-ul {
-  margin: 0;
-}
+            ul {
+                margin: 0;
+            }
 
-li {
-  list-style: none;
-}
+            li {
+                list-style: none;
+            }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0;
-  width: 100%;
-}
+            .row {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                padding: 0;
+                width: 100%;
+            }
 
-.square {
-  -webkit-text-stroke-width: 0.03em;
-  -webkit-text-stroke-color: black;
-  align-content: center;
-  align-items: center;
-  color: white;
-  display: flex;
-  font-size: 1em;
-  font-weight: 700;
-  height: 5em;
-  justify-content: center;
-  width: 5em;
-  border: solid 0.5px black;
-}
+            .square {
+                -webkit-text-stroke-width: 0.03em;
+                -webkit-text-stroke-color: black;
+                align-content: center;
+                align-items: center;
+                color: white;
+                display: flex;
+                font-size: 1em;
+                font-weight: 700;
+                height: 5em;
+                justify-content: center;
+                width: 5em;
+                border: solid 0.5px black;
+            }
+            .setSep{
+              color: white; 
+              width: 100%;
+              text-align: center;
+              background-color: black;
+              font-size: large;
+            }
+            .siteSep{
+              color: white; 
+              width: 60%;
+              text-align: center;
+              background-color: grey;
+              font-size: large;
+            }
 
-.square:hover {
-  cursor: pointer;
-  transition: background-color 0.5s ease;
-}
+            .square:hover {
+                cursor: pointer;
+                transition: background-color 0.5s ease;
+            }
 
-.square span {
-  display: none;
-}
+            .square span {
+                display: none;
+            }
 
-.square:hover span {
-  display: block;
-}
-
+            .square:hover span {
+                display: block;
+            }
         </style>
     </head>
     <body>
         <div id='container'></div>
     </body>
     <script>
-  console.log(data);
-  console.log(data[[0]]);
-  console.log(data[[0]].Sample);
+        console.log(data);
+        console.log(data[[0]]);
+        console.log(data[[0]].Sample);
         const colors = [
-  'grey', 
-  'blue',
-  'green', 
-  'red', 
-  'magenta', 
-  'red', 
-  'yellow',
-  'orange'
-];
+            'grey',
+            'blue',
+            'green',
+            'red',
+            'magenta',
+            'red',
+            'yellow',
+            'orange'
+        ];
 
-const numColors = colors.length-1;
+        const numColors = colors.length - 1;
 
-function createGrid(numRows, numCols) {
- /* for (var i=0; i<numRows; i++) {
+        function createGrid(numRows, numCols) { /* for (var i=0; i<numRows; i++) {
     $('#container').append("<ul id='row-"+i+"' class='row'>");
     
     if (i===(numRows-1)) {
       createSquares(numRows, numCols);
     };
   }*/
-var CurrSampleSet = getSampleSet(data[[0]].Sample);//get sample set (01) of first sample
-var CurrSampleSite = getSite(data[[0]].Sample);//Set sample site
+            var CurrSampleSet = getSampleSet(data[[0]].Sample); // get sample set (01) of first sample
+            var CurrSampleSite = getSite(data[[0]].Sample); // Set sample site
 
-AddRow(0);//Add first row
-var ActiveRow = $('#row-'+ RowNum);//Set Active Row Element
-var RowNum = 1;//Counter for the number of added rows
-var offset = 0;//Offset set when seperator or row is added
+            AddSetSeperator(CurrSampleSet);
+            AddSiteSeperator(CurrSampleSite);
 
-for(var i = 0; i < data.length;){//Loop over samples
-    	
-    // Check for new sample set (e.g. 01KM to 02KM)
-    if(getSampleSet(data[[i]].Sample) != CurrSampleSet){//New set, add seperator
-            CurrSampleSet = getSampleSet(data[[i]].Sample);
-            //AddSetSeperator(CurrSampleSet); //Add seperator with text of new sample set
-    }
-    if(CurrSampleSite != getSite(data[[i]].Sample)){//Check for different sites within sample set (e.g. 01KM to 01FH)
-    	    AddSiteSeperator(CurrSampleSite);//Add seperator between sample sites within a sample set
-	    //CurrSampleSite = getSite(data[[i]].Sample);//Set sample site
-    }
-        
-    //Add tile
-    var square = "<li id='sq-"+i+"' class='square'></li>";
-    square = setSquareProperties(square, data[[i]]);//Set color of square
-    $(ActiveRow).append(square);
-    
-    
-    //Create new rows
-    if((i-offset)%numCols == 0 && i < (data.length-1)){//If row is filled up now and it's not the last element, add the next row
-     AddRow(RowNum);
-     RowNum++;
-     ActiveRow = $('#row-'+ RowNum)
-     offset = i;//Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
-    }
-    
-}
-    
-}
+            AddRow(0); // Add first row
+            var RowNum = 0; // Counter for the number of added rows
+            var $ActiveRow = $('#row-' + RowNum); // Set Active Row Element
+            var offset = -1; // Offset set when seperator or row is added
 
-function AddRow(RowNum){
-    $('#container').append("<ul id='row-"+RowNum+"' class='row'>");
-}
-        
-function createSquares(numRows, numCols) {
- /* var count = 0;
+            for (var i = 0; i < data.length; i++) {
+                // Loop over samples
+
+                // Check for new sample set (e.g. 01KM to 02KM)
+                if (getSampleSet(data[[i]].Sample) != CurrSampleSet) { // New set, add seperator
+                    CurrSampleSet = getSampleSet(data[[i]].Sample);
+                    AddSetSeperator(CurrSampleSet); // Add seperator with text of new sample set
+
+                    RowNum++;
+                    AddRow(RowNum);
+                    $ActiveRow = $('#row-' + RowNum)
+                    offset = i; // Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
+                }
+                if (CurrSampleSite != getSite(data[[i]].Sample)) { // Check for different sites within sample set (e.g. 01KM to 01FH)
+                    CurrSampleSite = getSite(data[[i]].Sample); // Set sample site
+                    AddSiteSeperator(CurrSampleSite); // Add seperator between sample sites within a sample set
+                    
+                    RowNum++;
+                    AddRow(RowNum);
+                    $ActiveRow = $('#row-' + RowNum)
+                    offset = i; // Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
+                }
+
+                // Add tile
+                var square = "<li id='sq-" + i + "' class='square'></li>";
+                $ActiveRow.append(square);
+                var $square = $('#sq-' + i);
+                setSquareProperties($square, data[[i]]);
+                // Set color of square
+
+
+                // Create new rows
+                if ((i - offset) / numCols == 1 && i < (data.length - 1)) { // If row is filled up now and it's not the last element, add the next row
+                    RowNum++;
+                    AddRow(RowNum);
+                    $ActiveRow = $('#row-' + RowNum)
+                    offset = i; // Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
+                }
+
+            }
+
+        }
+
+        function AddRow(RowNum) {
+            $('#container').append("<ul id='row-" + RowNum + "' class='row'>");
+        }
+
+        function createSquares(numRows, numCols) { /* var count = 0;
   for (var i=0; i<numRows; i++) {
     var $row = $('#row-'+i);
 
@@ -155,25 +182,41 @@ function createSquares(numRows, numCols) {
       }
     }
   }*/
-}
+        }
 
-function colorSquares(numCols) {
-  var colorId = 0;
-  
-  for (var i=0; i<numCols; i++) {
-    var square = '#sq-'+i;
-    
-    if (colorId < numColors) {
-      changeSquareColor(square, colorId);
-      colorId++;
-    } else {
-      changeSquareColor(square, colorId);
-      colorId = 0;
-    }
-  }
-}
+        function AddSetSeperator(NewSet) {
 
-/*function changeSquareColor(square, newColorId) {
+            $('#container').append("<ul class='setSep'>" + NewSet + " Samples</ul>");
+
+            // var sep = "<li class='setSeperator'>"+ NewSet + "</li>";
+            // ActiveRow.append(sep);
+        }
+        function AddSiteSeperator(NewSite) {
+
+          $('#container').append("<ul class='siteSep'>" + NewSite + "</ul>");
+
+
+            //var sep = "<li class='siteSeperator'>" + NewSite + "</li>";
+            //ActiveRow.append(sep);
+        }
+
+        function colorSquares(numCols) {
+            var colorId = 0;
+
+            for (var i = 0; i < numCols; i++) {
+                var square = '#sq-' + i;
+
+                if (colorId < numColors) {
+                    changeSquareColor(square, colorId);
+                    colorId++;
+                } else {
+                    changeSquareColor(square, colorId);
+                    colorId = 0;
+                }
+            }
+        }
+
+        /*function changeSquareColor(square, newColorId) {
   var newColor = colors[newColorId];
   
   $(square).data('color', newColorId);
@@ -181,10 +224,10 @@ function colorSquares(numCols) {
   $(square).css('background-color', newColor);
 };
 */
-$(document).ready(function() {
-  createGrid(10, 5);
-  
-  /*$('.square').on('mouseenter', function(event) {
+        $(document).ready(function () {
+            createGrid(10, 10);
+
+            /*$('.square').on('mouseenter', function(event) {
     var square = event.target;
     var colorId = $(square).data('color');
 
@@ -213,40 +256,38 @@ $(document).ready(function() {
       changeSquareColor(square, newColorId);
     }
   });*/
-});
+        });
 
-function setSquareProperties(Square, Sample){
-  
-  var color = "grey"; //Default color for bagged samples
+        function setSquareProperties(Square, Sample) {
 
-if(Sample.Lost == "Y"){
-  color = "red";
-}
-else if(Sample.Extracted == "Y"){
-  color = "green";
-}
-else if(Sample.Powdered == "Y"){
-  color = "yellow";
-}
-else if(Sample.FreezeDried == "Y"){
-  color = "orange";
-}
+            var color = "grey"; // Default color for bagged samples
 
-//$(square).data('color', newColorId);
-  $(Square).html('<span>'+color+'</span>');
-  $(Square).css('background-color', color);
+            if (Sample.Lost == "Y") {
+                color = "red";
+            }else if(Sample.Analysed == "Y"){
+              color = "#255503";
+            } else if (Sample.Extracted == "Y") {
+                color = "#64A338";
+            } else if (Sample.Powdered == "Y") {
+                color = "#3865A3";
+            } else if (Sample.FreezeDried == "Y") {
+                color = "#87A2C7";
+            }
 
-return(Square);
-}
+            // $(square).data('color', newColorId);
+            $(Square).html('<span>' + Sample.Sample + '</span>');
+            $(Square).css('background-color', color);
+        }
 
 
-function getSampleSet(ID){
-return (ID.substring(0,2))
-}
+        function getSampleSet(ID) {
+            return(ID.substring(0, 2))
+        }
 
 
-function getSite(ID){
-return (ID.substring(2,4))
-}
+        function getSite(ID) {
+            return(ID.substring(2, 4))
+        }
     </script>
 </html>
+

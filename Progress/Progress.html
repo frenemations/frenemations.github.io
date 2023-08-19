@@ -22,6 +22,35 @@
                 justify-content: center;
                 width: 100%;
             }
+            #legend {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                margin-bottom: 2em;
+            }
+            .containerBox{
+              display: flex;
+                flex-direction: row;
+                justify-content: left;
+                padding: 0;
+                width: 10em;
+                text-align: center;
+                margin-left: 1em;
+            }
+            .legendText{
+              height: 5em;
+              width: 7em;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              background-color: lightgray;
+            }
+            .legendColor{
+              height: 5em;
+              width: 5em;
+            }
 
             ul {
                 margin: 0;
@@ -44,7 +73,7 @@
                 -webkit-text-stroke-color: black;
                 align-content: center;
                 align-items: center;
-                color: white;
+                color: black;
                 display: flex;
                 font-size: 1em;
                 font-weight: 700;
@@ -57,15 +86,24 @@
               color: white; 
               width: 100%;
               text-align: center;
-              background-color: black;
+              background-color: rgb(36, 58, 104);
               font-size: large;
+              background-image: radial-gradient(circle at 1px 1px, black 1px, transparent 0);
+              height: 5dvh;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
             }
             .siteSep{
               color: white; 
-              width: 60%;
+              width: 20%;
               text-align: center;
-              background-color: grey;
+              background-color: rgb(36, 58, 104);
               font-size: large;
+              height: 1em;
+              margin-top: 0.5em;
+              border-radius: 10px;
+              padding: 0;
             }
 
             .square:hover {
@@ -83,12 +121,23 @@
         </style>
     </head>
     <body>
-        <div id='container'></div>
+      <div id="legend"></div>
+      <div id='container'></div>
     </body>
     <script>
         console.log(data);
         console.log(data[[0]]);
         console.log(data[[0]].ID);
+
+        const Colors = {
+          Bagged: "#afe0fa",
+          FreezeDried: "#29b5ff",
+          Powdered: "#26ebeb",
+          Extracted: "#30b84b",
+          Analysed: "#b2eb57",
+          Lost:"red"
+          }
+        addlegend(Colors);
 
         function createGrid(numRows, numCols) { /* for (var i=0; i<numRows; i++) {
     $('#container').append("<ul id='row-"+i+"' class='row'>");
@@ -131,14 +180,6 @@
                     offset = i; // Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
                 }
 
-                // Add tile
-                var square = "<li id='sq-" + i + "' class='square'></li>";
-                $ActiveRow.append(square);
-                var $square = $('#sq-' + i);
-                setSquareProperties($square, data[[i]]);
-                // Set color of square
-
-
                 // Create new rows
                 if ((i - offset) / numCols == 1 && i < (data.length - 1)) { // If row is filled up now and it's not the last element, add the next row
                     RowNum++;
@@ -146,6 +187,13 @@
                     $ActiveRow = $('#row-' + RowNum)
                     offset = i; // Set offset so that new index starts at 0 for the new row. This allows rows with some unfilled columns
                 }
+
+                // Add tile
+                var square = "<li id='sq-" + i + "' class='square'></li>";
+                $ActiveRow.append(square);
+                var $square = $('#sq-' + i);
+                setSquareProperties($square, data[[i]]);
+                // Set color of square
 
             }
 
@@ -253,15 +301,15 @@
             if (Sample.Lost == "Y") {
                 color = "red";
             }else if(Sample.Analysed == "Y"){
-              color = "#255503";
+              color = "#b2eb57";
             } else if (Sample.Extracted == "Y") {
-                color = "#64A338";
+                color = "#30b84b";
             } else if (Sample.Powdered == "Y") {
-                color = "#3865A3";
+                color = "#26ebeb";
             } else if (Sample.FreezeDried == "Y") {
-                color = "#87A2C7";
+                color = "#29b5ff";
             }else if (Sample.Bagged == "Y"){
-              color = "#677876";
+              color = "#afe0fa";
             }
 
             // $(square).data('color', newColorId);
@@ -277,6 +325,12 @@
 
         function getSite(ID) {
             return(ID.substring(2, 4))
+        }
+        function addlegend(Colors){
+
+          Object.keys(Colors).forEach(function(key) {
+            $('#legend').append("<div class='containerBox'> <div class='legendText'>"+ key +"</div><div class='legendColor' style = 'background-color: " + Colors[key] + ";'></div></div>");
+          });
         }
     </script>
 </html>

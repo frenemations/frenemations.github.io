@@ -137,7 +137,6 @@
           Analysed: "#b2eb57",
           Lost:"red"
           }
-        addlegend(Colors);
 
         function createGrid(numRows, numCols) { /* for (var i=0; i<numRows; i++) {
     $('#container').append("<ul id='row-"+i+"' class='row'>");
@@ -261,6 +260,7 @@
 };
 */
         $(document).ready(function () {
+            addlegend(Colors);
             createGrid(10, 15);
 
             /*$('.square').on('mouseenter', function(event) {

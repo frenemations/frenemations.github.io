@@ -347,6 +347,8 @@ input:checked + .slider:before {
 */
         $(document).ready(function () {
 
+        loadSettings();
+
         //Set event for individual view slider changing
         $("#settIndvView").change(function() {
           //get ready to redraw squares
@@ -366,7 +368,16 @@ input:checked + .slider:before {
 
 
             addlegend(Colors);
-            createGrid(data, 15);
+
+          //Show individuals
+          if ($("#settIndvView").val() == true) {
+              createGrid(collapseDataToIndividuals(data), 15);
+          } else {//Show samples
+              createGrid(data, 15);
+          }
+
+
+            //createGrid(data, 15);
 
             /*$('.square').on('mouseenter', function(event) {
     var square = event.target;
@@ -524,7 +535,7 @@ input:checked + .slider:before {
             const d = new Date();
             d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
             let expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/; SameSite=Strict";
         }
 
         function getCookie(cname) {

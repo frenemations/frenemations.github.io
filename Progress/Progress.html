@@ -528,7 +528,7 @@ input:checked + .slider:before {
 
         function loadSettings(){
         //Load individual view toggle
-         var settIndvView = getCookie("IndividualView", "true", 300); if(settIndvView != null){$("#settIndvView").val(settIndvView);}
+         var settIndvView = getCookie("IndividualView"); if(settIndvView != null){$("#settIndvView").prop("checked", settIndvView);}
         }
 
         function setCookie(cname, cvalue, exdays) {

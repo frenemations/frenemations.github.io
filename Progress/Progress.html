@@ -370,7 +370,7 @@ input:checked + .slider:before {
             addlegend(Colors);
 
           //Show individuals
-          if (getCookie(IndividualView) == "true") {
+          if (getCookie("IndividualView") == "true") {
               createGrid(collapseDataToIndividuals(data), 15);
           } else {//Show samples
               createGrid(data, 15);

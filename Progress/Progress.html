@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
+        <title>Metabolomics Progress</title>
         <link rel="stylesheet" href="/NoUpload/YellowBlue.css"/>
         <link rel="icon" href="icons/Logo.svg">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -370,7 +370,7 @@ input:checked + .slider:before {
             addlegend(Colors);
 
           //Show individuals
-          if ($("#settIndvView").val() == true) {
+          if (getCookie(IndividualView) == "true") {
               createGrid(collapseDataToIndividuals(data), 15);
           } else {//Show samples
               createGrid(data, 15);

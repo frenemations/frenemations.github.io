@@ -179,13 +179,27 @@ input:checked + .slider:before {
         </style>
     </head>
     <body>
-      <div class = "containerBox">
-        <label>Individual View</label>
-        <label class="switch">
-          <input type="checkbox", id="settIndvView">
-          <span class="slider"></span>
-        </label>
+      <div class="row" style="margin-top: 1em; margin-bottom: 1em;">
+        <div class="containerBox" style="display: inline-block; border: 1px solid black; background-color: rgb(226, 196, 196); padding: 1em; width: 30%;">
+          <div class="row" style="margin-bottom: 1em;">
+            <label style="display: inline-block; width: 50%;">Individual View</label>
+            <div style="display: inline-block; width: 50%;">
+            <label class="switch" >
+              <input type="checkbox" id="settIndvView">
+              <span class="slider"></span>
+            </label>
+          </div>
+          </div>
+          <div class="row">
+            <label style="display: inline-block; width: 50%;">View Individual As</label>
+            <select name="reduceFunct" id="reduceFunct" style="display: inline-block; width: 50%;">
+              <option value="Least">Least Progressed Sample</option>
+            </select>
+          </div>
+        </div>
       </div>
+      
+    </div>
       <div id="legend"></div>
       <div id='container'></div>
     </body>

@@ -82,6 +82,11 @@
                 width: 5em;
                 border: solid 0.5px black;
             }
+            .dotted{
+              background-image: radial-gradient(black 1px, transparent 0);
+              background-size: 10px 10px;
+              background-position: -19px -19px;
+            }
             .setSep{
               color: white; 
               width: 100%;
@@ -118,27 +123,90 @@
             .square:hover span {
                 display: block;
             }
+            /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
         </style>
     </head>
     <body>
+      <div class = "containerBox">
+        <label>Individual View</label>
+        <label class="switch">
+          <input type="checkbox", id="settIndvView">
+          <span class="slider"></span>
+        </label>
+      </div>
       <div id="legend"></div>
       <div id='container'></div>
     </body>
     <script>
-        console.log(data);
-        console.log(data[[0]]);
-        console.log(data[[0]].ID);
-
+        //console.log(data);
+        //console.log(data[[0]]);
+        //console.log(data[[0]].ID);
+  
         const Colors = {
+          Collected: "grey",
           Bagged: "#afe0fa",
           FreezeDried: "#29b5ff",
-          Powdered: "#26ebeb",
-          Extracted: "#30b84b",
-          Analysed: "#b2eb57",
+          Powdered: "#26ebc0",
+          Extracted: "#b2eb57",
+          Analysed: "#30b84b",
           Lost:"red"
           }
 
-        function createGrid(numRows, numCols) { /* for (var i=0; i<numRows; i++) {
+     
+
+        function createGrid(data, numCols) { /* for (var i=0; i<numRows; i++) {
     $('#container').append("<ul id='row-"+i+"' class='row'>");
     
     if (i===(numRows-1)) {
@@ -155,6 +223,10 @@
             var RowNum = 0; // Counter for the number of added rows
             var $ActiveRow = $('#row-' + RowNum); // Set Active Row Element
             var offset = -1; // Offset set when seperator or row is added
+
+
+          // Settings
+
 
             for (var i = 0; i < data.length; i++) {
                 // Loop over samples
@@ -260,8 +332,27 @@
 };
 */
         $(document).ready(function () {
+
+        //Set event for individual view slider changing
+        $("#settIndvView").change(function() {
+          //get ready to redraw squares
+          clearSquares();
+
+         if(this.checked){
+
+          setCookie("IndividualView", "true", 300);
+          createGrid(collapseDataToIndividuals(data),15);
+         }else{
+          
+          setCookie("IndividualView", "false", 300);
+          createGrid(data,15);
+         }
+        });
+
+
+
             addlegend(Colors);
-            createGrid(10, 15);
+            createGrid(data, 15);
 
             /*$('.square').on('mouseenter', function(event) {
     var square = event.target;
@@ -308,7 +399,11 @@
               color = Colors["Powdered"];
             } else if (Sample.FreezeDried == "Y") {
               color = Colors["FreezeDried"];
-            }else if (Sample.Bagged == "Y"){
+            }else if (Sample.FreezeDried == "P"){//In progress
+              color = Colors["FreezeDried"];
+              $(Square).addClass('dotted');
+            }
+            else if (Sample.Bagged == "Y"){
               color = Colors["Bagged"];
             }
 
@@ -332,6 +427,110 @@
             $('#legend').append("<div class='containerBox'> <div class='legendText'>"+ key +"</div><div class='legendColor' style = 'background-color: " + Colors[key] + ";'></div></div>");
           });
         }
+
+        //Go from samples to individuals using settings-specified reduction method
+        function collapseDataToIndividuals(data){
+
+          //Create clone of array to prevent modification of original by object references
+          var dataClone = data.map(a => {return {...a}}); 
+
+          //Extract relevant fields from color legend
+          var fieldsToCheck = Object.keys(Colors);
+
+          indvdls = getIndividuals(dataClone);
+
+          result = [];
+
+
+          //Get samples for each individual -> merge using specified method -> add individual to result
+          indvdls.forEach(individual => {
+            var samples = dataClone.filter(sample => sample.ID.substring(0,6) == individual);
+
+            result.push(getLeastProgressedSample(samples, fieldsToCheck));
+          });
+
+        //First get a list of individuals 
+        //Loop over each individual
+        //  Filter data array to get all samples for the indv.
+        //  Use specified function to compute individual status (Most progress, union, intersection, etc.)
+        //  Copy first entry and modify to new status
+        //  Add object to output array
+        //Return output array
+          return(result);
+        }
+
+        function getIndividuals(data){
+          data.forEach(Sample => Sample.ID = Sample.ID.substring(0,6));//Cut out subsample specifier
+
+          data = data.filter((value, index, self) => index === self.findIndex((t) => (t.ID === value.ID)));//Remove duplicates
+          return(data.map(x => x['ID']));//Return specimens
+
+        }
+
+        //Takes sample and array of relevant field names and returns the intersection of all samples. Fields to be given in chronological order (first to be checked off is first in array).
+        function  getLeastProgressedSample(samples, fieldsToCheck){
+
+          //Check for lost sample first
+          for(var i = 0; i < samples.length; i++){
+              if(samples[i,"Lost"] == "Y"){//Sample lost. Individual not fully represented
+                return(samples[i]);
+              }
+          }
+
+          //Proceed with every field, checking that field for all samples. If all are checked off, proceed to next field.
+          fieldsToCheck.forEach(field => {
+            var leastProgressedIndex = -1;
+
+            //Loop over each sample
+            for(var i = 0; i < samples.length; i++){
+
+              if(samples[i,field] == "" || samples[i,field] == "N"){//Not checked off
+                return(samples[i]);
+              }else if(samples[i,field] == "P"){//In progress but not completed
+                leastProgressedIndex = i;
+              }
+            }
+
+            if(leastProgressedIndex > -1){//Sample existed that was in progress but not completed
+              return(leastProgressedIndex);
+            }
+
+          });
+
+          return(samples[0]);//All samples are equally progressed for all fields, just return the first
+
+        }
+
+        function loadSettings(){
+        //Load individual view toggle
+         var settIndvView = getCookie("IndividualView", "true", 300); if(settIndvView != null){$("#settIndvView").val(settIndvView);}
+        }
+
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        function clearSquares(){
+          $('#container').empty();
+        }
+
     </script>
 </html>
 

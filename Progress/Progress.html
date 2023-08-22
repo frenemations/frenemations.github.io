@@ -77,10 +77,13 @@
                 display: flex;
                 font-size: 1em;
                 font-weight: 700;
-                height: 5em;
                 justify-content: center;
                 min-width: 5%;
                 border: solid 0.5px black;
+                aspect-ratio: 1/1;
+            }
+            .square:hover, .info-slide:active{
+              aspect-ratio: auto;
             }
             .dotted{
               background-image: radial-gradient(black 1px, transparent 0);

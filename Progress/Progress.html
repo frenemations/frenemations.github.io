@@ -79,7 +79,7 @@
                 font-weight: 700;
                 height: 5em;
                 justify-content: center;
-                width: 5em;
+                min-width: 6%;
                 border: solid 0.5px black;
             }
             .dotted{
@@ -433,7 +433,7 @@ input:checked + .slider:before {
             }
 
             // $(square).data('color', newColorId);
-            $(Square).html('<span>' + Sample.ID + '</span>');
+            $(Square).html('<span style="margin-left: 0.2em; margin-right: 0.2em;">' + Sample.ID + '</span>');
             $(Square).css('background-color', color);
         }
 

@@ -495,8 +495,8 @@ input:checked + .slider:before {
 
         }
 
-        //Takes sample and array of relevant field names and returns the intersection of all samples. Fields to be given in chronological order (first to be checked off is first in array).
-        function  getLeastProgressedSample(samples, fieldsToCheck){
+        //Takes samples and array of relevant field names and returns the intersection of all samples. Fields to be given in chronological order (first to be checked off is first in array).
+        function getLeastProgressedSample(samples, fieldsToCheck){
 
           //Check for lost sample first
           for(var i = 0; i < samples.length; i++){
@@ -506,24 +506,26 @@ input:checked + .slider:before {
           }
 
           //Proceed with every field, checking that field for all samples. If all are checked off, proceed to next field.
-          fieldsToCheck.forEach(field => {
+          for(var f =0; f<fieldsToCheck.length; f++) {
             var leastProgressedIndex = -1;
 
             //Loop over each sample
             for(var i = 0; i < samples.length; i++){
 
-              if(samples[i,field] == "" || samples[i,field] == "N"){//Not checked off
+              var test = samples[i][fieldsToCheck[f]];
+              
+              if(samples[i][fieldsToCheck[f]] == "" || samples[i][fieldsToCheck[f]] == "N"){//Not checked off
                 return(samples[i]);
-              }else if(samples[i,field] == "P"){//In progress but not completed
+              }else if(samples[i][fieldsToCheck[f]] == "P"){//In progress but not completed
                 leastProgressedIndex = i;
               }
             }
 
             if(leastProgressedIndex > -1){//Sample existed that was in progress but not completed
-              return(leastProgressedIndex);
+              return(samples[leastProgressedIndex]);
             }
 
-          });
+          }
 
           return(samples[0]);//All samples are equally progressed for all fields, just return the first
 

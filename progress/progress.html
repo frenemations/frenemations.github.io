@@ -36,6 +36,7 @@
                 padding: 0;
                 width: 10em;
                 text-align: center;
+                vertical-align: middle;
                 margin-left: 1em;
             }
             .legendText{
@@ -50,6 +51,10 @@
             .legendColor{
               height: 5em;
               width: 5em;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color:whitesmoke;
             }
 
             ul {
@@ -360,11 +365,14 @@ input:checked + .slider:before {
          if(this.checked){
 
           setCookie("IndividualView", "true", 300);
-          createGrid(collapseDataToIndividuals(data),15);
+          var indvdls = collapseDataToIndividuals(data)
+          createGrid(indvdls,15);
+          SetLegendCompletion(indvdls);
          }else{
           
           setCookie("IndividualView", "false", 300);
           createGrid(data,15);
+          SetLegendCompletion(data);
          }
         });
 
@@ -374,9 +382,12 @@ input:checked + .slider:before {
 
           //Show individuals
           if (getCookie("IndividualView") == "true") {
-              createGrid(collapseDataToIndividuals(data), 15);
+            var indvls = collapseDataToIndividuals(data);
+              createGrid(indvls, 15);
+            SetLegendCompletion(indvls);
           } else {//Show samples
               createGrid(data, 15);
+              SetLegendCompletion(data);
           }
 
 
@@ -413,6 +424,59 @@ input:checked + .slider:before {
   });*/
         });
 
+        //Takes data from which to calculate set the completion percentages
+        function SetLegendCompletion(statusData){
+
+          //Set Div completion text for each color legend
+          Object.keys(Colors).forEach(function(key){
+            $("#legend" + key).text(getPercentComplete(key, statusData) + "%") ;
+          });
+        }
+
+        //Return the percentage of samples which are completed for the given category
+        //Returns 0 if no complete samples are found and 100 if there are no samples
+        function getPercentComplete(Key, dat){
+          var totalSamples = dat.length;
+          var numComplete = -1;
+          if(Key == "Collected"){
+            numComplete = dat.filter(function (el) {
+              return el.Collected == "Y"
+            }).length;
+          }
+          else if(Key == "Bagged"){
+            numComplete = dat.filter(function (el) {
+              return el.Bagged == "Y"
+            }).length;
+          }else if(Key == "FreezeDried"){
+            numComplete = dat.filter(function (el) {
+              return el.FreezeDried == "Y"
+            }).length;
+          }else if(Key == "Powdered"){
+            numComplete = dat.filter(function (el) {
+              return el.Powdered == "Y"
+            }).length;
+          }else if(Key == "Extracted"){
+            numComplete = dat.filter(function (el) {
+              return el.Extracted == "Y"
+            }).length;
+          }else if(Key == "Analysed"){
+            numComplete = dat.filter(function (el) {
+              return el.Analysed == "Y"
+            }).length;
+          }else if(Key == "Lost"){
+            numComplete = dat.filter(function (el) {
+              return el.Lost == "Y"
+            }).length;
+          }
+
+          if(numComplete == -1){
+            return(0);
+          }else if(totalSamples == 0){
+            return(100);
+          }else{
+            return(Math.round((numComplete/totalSamples)*1000)/10);
+          }
+        }
         function setSquareProperties(Square, Sample) {
 
             var color = "grey"; // Default color for collected samples
@@ -452,7 +516,8 @@ input:checked + .slider:before {
         function addlegend(Colors){
 
           Object.keys(Colors).forEach(function(key) {
-            $('#legend').append("<div class='containerBox'> <div class='legendText'>"+ key +"</div><div class='legendColor' style = 'background-color: " + Colors[key] + ";'></div></div>");
+
+            $('#legend').append("<div class='containerBox'> <div class='legendText'>"+ key +"</div><div id='legend" + key + "' class='legendColor' style = 'background-color: " + Colors[key] + ";'></div></div>");
           });
         }
 

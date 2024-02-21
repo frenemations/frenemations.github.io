@@ -424,6 +424,12 @@ input:checked + .slider:before {
               <option value="Least">Least Progressed Sample</option>
             </select>
           </div>
+          <div class="row", style="margin-top: 20px;">
+            <label class="tooltip-bottom" data-tooltip="Minimum width of the squares"  style="display: inline-block; width: 50%;">Square size</label>
+            <div style="display: inline-block; width: 50%; position:relative; margin: 0 auto;">
+              <input id="squareSizeSlider" type="range" min="0.5" max="7" value="5" step="0.5" class="slider">
+            </div>
+          </div>
         </div>
       </div>
       
@@ -579,27 +585,23 @@ input:checked + .slider:before {
 
         //Set event for individual view slider changing
         $("#settIndvView").change(function() {
-          //get ready to redraw squares
-          clearSquares();
+    
+          setCookie("IndividualView", this.checked, 300);
+          RedrawSquares();
+        });
 
-         if(this.checked){
-
-          setCookie("IndividualView", "true", 300);
-          var indvdls = collapseDataToIndividuals(data)
-          createGrid(indvdls,15);
-          SetLegendCompletion(indvdls);
-         }else{
-          
-          setCookie("IndividualView", "false", 300);
-          createGrid(data,15);
-          SetLegendCompletion(data);
-         }
+        $("#squareSizeSlider").change(function(){
+          console.log(this.value);
+          setCookie("SqSize", this.value, 300);
+          RedrawSquares();
+          $(".square").css("min-width", this.value+"%");
         });
 
 
 
             addlegend(Colors);
-
+            RedrawSquares();
+/*
           //Show individuals
           if (getCookie("IndividualView") == "true") {
             var indvls = collapseDataToIndividuals(data);
@@ -609,7 +611,7 @@ input:checked + .slider:before {
               createGrid(data, 15);
               SetLegendCompletion(data);
           }
-
+*/
 
             //createGrid(data, 15);
 
@@ -643,6 +645,31 @@ input:checked + .slider:before {
     }
   });*/
         });
+        //Redraw squares as specified by settings
+        function RedrawSquares(){
+
+          clearSquares();
+
+          //get square size from settings
+          var sqSize = getCookie("SqSize");
+          if(sqSize == null){sqSize = 5;}
+          
+          //Calculate the number of squares per column
+          var numSqPColumn = parseInt(100/sqSize - 5);
+          console.log("Based on square size, using " + numSqPColumn + " squares per row");
+          //Show individuals
+          if (getCookie("IndividualView") == "true") {
+            var indvls = collapseDataToIndividuals(data);
+              createGrid(indvls, numSqPColumn);
+            SetLegendCompletion(indvls);
+          } else {//Show samples
+              createGrid(data, numSqPColumn);
+              SetLegendCompletion(data);
+          }
+          //set square size in css
+          $(".square").css("min-width", sqSize+"%");
+
+        }
 
         //Takes data from which to calculate set the completion percentages
         function SetLegendCompletion(statusData){
@@ -819,6 +846,8 @@ input:checked + .slider:before {
         function loadSettings(){
         //Load individual view toggle
          var settIndvView = getCookie("IndividualView"); if(settIndvView != null){$("#settIndvView").prop("checked", settIndvView == "true");}
+         var setSqSizeSlider = getCookie("IndividualView"); if(setSqSizeSlider != null){$("#settIndvView").prop("checked", setSqSizeSlider == "true");}
+
         }
 
         function setCookie(cname, cvalue, exdays) {

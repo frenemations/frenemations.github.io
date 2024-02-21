@@ -9,7 +9,7 @@
             "type": "firefox",
             "request": "launch",
             "reAttach": true,
-            "file": "${workspaceFolder}/Progress/Progress.html"
+            "file": "${workspaceFolder}/progress/progress.html"
         },
         {
             "name": "Launch localhost",

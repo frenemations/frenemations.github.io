@@ -449,6 +449,7 @@ input:checked + .slider:before {
           Powdered: "#1e28e8",
           Extracted: "#b2eb57",
           Analysed: "#30b84b",
+          Bioassay: "#8b2a9f",
           Lost:"#d43e1c"
           }
 
@@ -710,6 +711,10 @@ input:checked + .slider:before {
             numComplete = dat.filter(function (el) {
               return el.Analysed == "Y"
             }).length;
+          }else if(Key == "Bioassay"){
+            numComplete = dat.filter(function (el) {
+              return el.UsedInBioassay == "Y"
+            }).length;
           }else if(Key == "Lost"){
             numComplete = dat.filter(function (el) {
               return el.Lost == "Y"
@@ -732,7 +737,9 @@ input:checked + .slider:before {
                 color = Colors["Lost"];
             }else if(Sample.Analysed == "Y"){
               color = Colors["Analysed"];
-            } else if (Sample.Extracted == "Y") {
+            }else if(Sample.UsedInBioassay == "Y"){
+             color = Colors["Bioassay"];
+            }else if (Sample.Extracted == "Y") {
               color = Colors["Extracted"];
             } else if (Sample.Powdered == "Y") {
               color = Colors["Powdered"];

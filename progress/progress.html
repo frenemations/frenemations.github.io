@@ -735,10 +735,10 @@ input:checked + .slider:before {
 
             if (Sample.Lost == "Y") {
                 color = Colors["Lost"];
-            }else if(Sample.Analysed == "Y"){
-              color = Colors["Analysed"];
             }else if(Sample.UsedInBioassay == "Y"){
              color = Colors["Bioassay"];
+            }else if(Sample.Analysed == "Y"){
+              color = Colors["Analysed"];
             }else if (Sample.Extracted == "Y") {
               color = Colors["Extracted"];
             } else if (Sample.Powdered == "Y") {
